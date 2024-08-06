@@ -68,10 +68,10 @@ static void tsc2007_write_reg(struct indev_priv *priv, uint8_t reg, uint8_t val)
 //     uint8_t data_out[2];
 //     uint16_t val = 0;
 
-//     i2c_write_blocking(priv->i2c.master, priv->i2c.addr, &cmd, 1, true);
-//     i2c_read_blocking(priv->i2c.master, priv->i2c.addr, data_out, 2, false);
+//     i2c_write_blocking(priv->spec->i2c.master, priv->spec->i2c.addr, &reg, 1, true);
+//     i2c_read_blocking(priv->spec->i2c.master, priv->spec->i2c.addr, data_out, 2, false);
 
-//     if (priv->resolution == TSC2007_RESOLUTION_12BIT)  {
+//     if (priv->spec->resolution == TSC2007_RESOLUTION_12BIT)  {
 //         val |= data_out[0] << 4;
 //         val |= data_out[1] >> 4;
 //     } else {
@@ -110,6 +110,7 @@ uint16_t tsc2007_read_x(struct indev_priv *priv)
 uint16_t tsc2007_read_y(struct indev_priv *priv)
 {
     uint8_t val = read_reg(priv, TSC2007_CMD_READ_Y);
+    printf("val : %d\n", val);
     u16 this_y = 0;
 
     if (priv->invert_y)
@@ -117,10 +118,10 @@ uint16_t tsc2007_read_y(struct indev_priv *priv)
     else
         this_y = (val * priv->y_res) / (1 << priv->spec->resolution);
 
-    pr_debug("y : %d, sc_y : %f\n", this_y, priv->sc_y);
+    printf("y : %d, sc_y : %f\n", this_y, priv->sc_y);
     this_y += priv->spec->y_offs;
     this_y *= priv->sc_y;
-    pr_debug("y : %d, sc_y : %f\n", this_y, priv->sc_y);
+    printf("y : %d, sc_y : %f\n", this_y, priv->sc_y);
 
     return this_y;
 }
@@ -157,7 +158,7 @@ static void tsc2007_hw_init(struct indev_priv *priv)
     i2c_bus_scan(priv->spec->i2c.master);
 
     priv->ops->reset(priv);
-    priv->ops->set_dir(priv, INDEV_DIR_SWITCH_XY | INDEV_DIR_INVERT_Y | INDEV_DIR_INVERT_X);
+    priv->ops->set_dir(priv, INDEV_DIR_SWITCH_XY | INDEV_DIR_INVERT_Y);
 }
 
 static struct indev_spec tsc2007 = {
@@ -172,10 +173,10 @@ static struct indev_spec tsc2007 = {
         .pin_sda = TSC2007_PIN_SDA,
     },
 
-    .x_res  = 410,  // 25 ~ 435 --- 0 ~ 410
-    .y_res  = 275,  // 25 ~ 300 --- 0 ~ 275
-    .x_offs = -25,
-    .y_offs = -25,
+    .x_res  = 430,  // 15 ~ 435 --- 0 ~ 420
+    .y_res  = 285,  // 20 ~ 305 --- 0 ~ 285
+    .x_offs = 15,
+    .y_offs = -20,
     .resolution = TSC2007_RESOLUTION_8BIT,
 
     .pin_irq = TSC2007_PIN_IRQ,
