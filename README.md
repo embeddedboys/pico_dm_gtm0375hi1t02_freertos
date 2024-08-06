@@ -1,23 +1,14 @@
-# Pico DM 8080 Template
+# Pico DM GTM0375HI1T02
 
-## TODO list
+**Pico DM GTM0375HI1T02** is a Display extension board for Raspberry Pi Pico with touch screen support.
 
-- [x] support LVGL v8.3
+## Tech Spec
 
-- [ ] support LVGL v9
-
-- [x] Overclocking profile support
-
-- [ ] dynamic frequency modifier
-
-- [x] 8080 PIO All in one
-
-- [x] TFT driver framework
-
-- [ ] Input driver framework
-
-- [x] Resistive touch screen calibration support
-
-- [ ] NS2009 support
-
-present by embeddedboys developers
+| | |
+| --- | --- |
+| Display Size | 3.5" |
+| Resolution | 320 x 240 |
+| Touch Screen | TSC2007 Resistive |
+| Driver IC | ILI9488 |
+| Interface | I8080 8bit |
+| Operating Voltage | 3.3V |
