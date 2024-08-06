@@ -110,7 +110,7 @@ uint16_t tsc2007_read_x(struct indev_priv *priv)
 uint16_t tsc2007_read_y(struct indev_priv *priv)
 {
     uint8_t val = read_reg(priv, TSC2007_CMD_READ_Y);
-    printf("val : %d\n", val);
+    pr_debug("val : %d\n", val);
     u16 this_y = 0;
 
     if (priv->invert_y)
@@ -118,10 +118,10 @@ uint16_t tsc2007_read_y(struct indev_priv *priv)
     else
         this_y = (val * priv->y_res) / (1 << priv->spec->resolution);
 
-    printf("y : %d, sc_y : %f\n", this_y, priv->sc_y);
+    pr_debug("y : %d, sc_y : %f\n", this_y, priv->sc_y);
     this_y += priv->spec->y_offs;
     this_y *= priv->sc_y;
-    printf("y : %d, sc_y : %f\n", this_y, priv->sc_y);
+    pr_debug("y : %d, sc_y : %f\n", this_y, priv->sc_y);
 
     return this_y;
 }
