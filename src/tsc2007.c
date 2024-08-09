@@ -173,9 +173,9 @@ static struct indev_spec tsc2007 = {
         .pin_sda = TSC2007_PIN_SDA,
     },
 
-    .x_res  = 430,  // 15 ~ 435 --- 0 ~ 420
+    .x_res  = 415,  // 15 ~ 435 --- 0 ~ 420
     .y_res  = 285,  // 20 ~ 305 --- 0 ~ 285
-    .x_offs = 15,
+    .x_offs = 5,
     .y_offs = -20,
     .resolution = TSC2007_RESOLUTION_8BIT,
 
