@@ -105,7 +105,7 @@ static struct tft_display ili9488 = {
     .tftops = {
 #if LCD_PIN_DB_COUNT == 8
         .write_reg = tft_write_reg8,
-        .video_sync = tft_video_sync,
+        // .video_sync = tft_video_sync,
 #else
         .write_reg = tft_write_reg16,
 #endif
